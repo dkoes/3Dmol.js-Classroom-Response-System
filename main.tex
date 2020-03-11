@@ -89,7 +89,7 @@
 %% if an abstract is not used by the target journal.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-Classroom response systems are an important tool in many active learning pedagogies.  They support real-time feedback on student learning and promote student engagement, even in large classrooms, by allowing instructors to solicit an answer to a question from all students and show the results. Existing classroom response systems are general purpose and not tailored to the specific needs of a chemistry classroom.  In particular, it is not easy to deploy molecular representations except as static images. Here we present a classroom response system that uses the web-based 3Dmol.js JavaScript framework to provide interactive viewing and querying of 3D molecules and provide a case study of its use in an organic chemistry recitation.
+Classroom response systems are an important tool in many active learning pedagogies.  They support real-time feedback on student learning and promote student engagement, even in large classrooms, by allowing instructors to solicit an answer to a question from all students and show the results. Existing classroom response systems are general purpose and not tailored to the specific needs of a chemistry classroom.  In particular, it is not easy to deploy molecular representations except as static images. Here we present a classroom response system that uses the open source web-based 3Dmol.js JavaScript framework to provide interactive viewing and querying of 3D molecules and provide a case study of its use in an organic chemistry recitation.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -107,12 +107,20 @@ The use of classroom response systems in the chemistry classroom is growing, par
     \label{fig:viewer}
 \end{figure}
 
-\section{3Dmol.js Learning Environment}
+\section{3Dmol.js Classroom Response System}
 
-3Dmol.js\cite{rego20153dmol} is a WebGL-based JavaScript library for hardware-accelerated online molecular graphics.  It supports most molecular file formats and visualization styles, including support for volumetric data (e.g. cube files) and simulation data (e.g. AMBER\cite{case2005amber} or GROMACS\cite{van2005gromacs} data).  In addition to its full featured JavaScript API, 3Dmol.js offers an embedding API, where a molecular view can be constructed by inserting a single \texttt{div} statement in a web page, and a URL-based hosted viewer API. The hosted viewer is specifically designed so that all information to display the current molecular view is embedded in the URL.  That is, having constructed a scene by loading the appropriate molecular data and applying the desired styles, it is possible to share the URL with students (e.g. as a QR code) so they can see the identical scene.
+3Dmol.js\cite{rego20153dmol} is a WebGL-based JavaScript library for hardware-accelerated online molecular graphics.  It supports most molecular file formats and visualization styles, including support for volumetric data (e.g. cube files) and simulation data (e.g. AMBER\cite{case2005amber} or GROMACS\cite{van2005gromacs} data).  In addition to its full-featured JavaScript API, 3Dmol.js offers an embedding API, where a molecular view can be added to a web page by inserting a single \texttt{div} statement, and a URL-based hosted viewer API. The hosted viewer (\url{http://3dmol.csb.pitt.edu/viewer.html}) is specifically designed so that all information to display the current molecular view is included in the URL.  That is, having constructed a scene by loading the appropriate molecular data and applying the desired styles using the provided edit panel (Figure~\ref{viewer}), it is possible to share the URL with students (e.g. as a QR code) so they can see the identical scene and interact with it.  As 3Dmol.js is open source (BSD License), instructors may host the viewer on their own web servers if desired.  We have added functionality to the 3Dmol.js API and hosted viewer to enable its use as a classroom response system where students answer queries by clicking on atoms of a 3D molecule.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{flow}
+    \caption{Flow of instructor (top) and student (bottom) interactions with the 3Dmol.js classroom response system.}
+    \label{fig:flow}
+\end{figure}
 
 \subsection{User Interface}
 
+Usage of the classroom response features are shown in Figure~\ref{fig:flow}.  (1) The instructor clicks on the `share' icon in the upper right of the hosted viewer. (2) In the resulting text box, the instructor creates a session by specifying its name.  Once created, a session lasts as long as the creating browser window is left open and only that browser window has the ability to manipulate the session contents.  The session will be initialized with the current molecular view. If a session is already available, the `Create' button will change to a `Join' button.  (3) When students click on the share button (4) they enter the name of the already created session and click `Join.'  (5) This populates their viewer with the instructor's molecular view and the instructor's view is updated to show that an additional user has connected.  Monitoring the number of connections is important for ensuring the whole class is participating.  (6) When the instructor modifies the view of the molecule the student's view is updated to match.  As long as the instructor is not changing the view, students can freely interact with the molecule by rotating, translating, or zooming the view.
 
 
 \subsection{Implementation}
